@@ -7,15 +7,22 @@ import registerServiceWorker from './registerServiceWorker';
 // ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();
 
-const a = {};
-
 class FormatDate extends React.Component{
+    constructor(props){
+        super(props);
+        this.props = props;
+    }
+    render(){
+        return <div className="Comment-date">
+            {this.props.date.toLocaleString()}
+        </div>
+    }
+}
+
+class Clock extends React.Component{
     constructor(){
         super();
         this.state = {date : new Date()}
-        // setInterval(() =>{
-        //     this.setState({date:new Date()})
-        // },1000)
     }
 
     tick (){
@@ -31,11 +38,19 @@ class FormatDate extends React.Component{
         clearInterval(this.timerID)
     }
 
-    render(){
-        return <div className="Comment-date">
-            {this.state.date.toLocaleString()}
-        </div>
+    alertTest(){
+        console.log(this.state);
     }
+
+    render (){
+        return (
+            <div>
+                <FormatDate date={this.state.date}/>
+                <button onClick={this.alertTest.bind(this)}>test</button>
+            </div>
+        );
+    }
+
 }
 
 class Avatar extends React.Component{
@@ -69,7 +84,7 @@ class Comment extends React.Component {
             <div className="Comment">
                 <UserInfo avatarUrl={this.props.author.avatarUrl} name={this.props.author.name} />
                 <div className="Comment-text">{this.props.text}</div>
-                <FormatDate />
+                <Clock />
             </div>
         );
     }
