@@ -7,6 +7,8 @@ import registerServiceWorker from './registerServiceWorker';
 // ReactDOM.render(<App />, document.getElementById('root'));
 // registerServiceWorker();
 
+const a = {};
+
 class FormatDate extends React.Component{
     constructor(){
         super();
@@ -15,6 +17,20 @@ class FormatDate extends React.Component{
         //     this.setState({date:new Date()})
         // },1000)
     }
+
+    tick (){
+        return setInterval(() => {
+            this.setState({date:new Date()});
+        },1000)
+    }
+    componentDidMount() {
+        this.timerID = this.tick();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID)
+    }
+
     render(){
         return <div className="Comment-date">
             {this.state.date.toLocaleString()}
